@@ -43,7 +43,7 @@ public class Banca
 
         Prestito prestito1 = new Prestito(1111111, 2000, 100, DateOnly.Parse("01/09/2022"), cliente1);
         Prestito prestito2 = new Prestito(2222222, 4000, 100, DateOnly.Parse("01/09/2021"), cliente2);
-        Prestito prestito3 = new Prestito(3333333, 1000, 50, DateOnly.Parse("01/010/2022"), cliente2);
+        Prestito prestito3 = new Prestito(3333333, 1000, 50, DateOnly.Parse("01/10/2022"), cliente2);
         Prestito prestito4 = new Prestito(4444444, 1000, 30, DateOnly.Parse("01/05/2021"), cliente3);
         Prestito prestito5 = new Prestito(5555555, 1000, 25, DateOnly.Parse("01/08/2022"), cliente3);
         Prestito prestito6 = new Prestito(6666666, 1000, 70, DateOnly.Parse("01/10/2022"), cliente3);
