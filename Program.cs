@@ -48,13 +48,14 @@ while (running)
     Console.WriteLine("Menu");
     Console.Write("Seleziona l'azione che vuoi eseguire digitando il numero");
     Console.WriteLine();
-    Console.WriteLine("[1] Aggiungi cliente");
-    Console.WriteLine("[2] Modifica cliente");
-    Console.WriteLine("[3] Ricerca cliente");
-    Console.WriteLine("[4] Ricerca prestito cliente");
-    Console.WriteLine("[5] Aggiungi un prestito");
-    Console.WriteLine("[6] Prospetto cliente");
-    Console.WriteLine("[7] Prospetto prestiti");
+    Console.WriteLine("[1]  Aggiungi cliente");
+    Console.WriteLine("[2]  Modifica cliente");
+    Console.WriteLine("[3]  Ricerca cliente");
+    Console.WriteLine("[4]  Ricerca prestito cliente");
+    Console.WriteLine("[5]  Aggiungi un prestito");
+    Console.WriteLine("[6]  Prospetto prestiti banca");
+    Console.WriteLine("[7]  Prospetto prestiti");
+    Console.WriteLine("[8]  Esc");
 
     int scelta = Convert.ToInt32(Console.ReadLine());
 
@@ -70,19 +71,37 @@ while (running)
 
             if (clienteEsistente != null)
             {
-                Console.WriteLine("Attenzione! Il cliente è già stato inserito!");
+                Console.WriteLine("Il cliente è già stato inserito!");
 
             }
             else
             {
 
-               Cliente nuovoCLiente = new Cliente(codiceFiscale);
-                boolBank.AggiungiCliente(nuovoCLiente);
-                Console.WriteLine("Il cliente è stato inserito correttamente");
+                Console.Write("Inserisci Nome: ");
+                string nome = Console.ReadLine();
+
+                Console.Write("Inserisci Cognome: ");
+                string cognome = Console.ReadLine();
+
+                Console.Write("Inserisci il tuo stipendio: ");
+                int stipendio = Convert.ToInt32(Console.ReadLine());
+
+
+                Cliente nuovoCliente = new Cliente(codiceFiscale);
+                boolBank.AggiungiCliente(nuovoCliente);
+
+
+                if (nuovoCliente != null)
+                    Console.WriteLine("Cliente registrato con successo");
+                else
+                    Console.WriteLine("Errore nella registrazione. Riprova");
+                Console.WriteLine();
+
             }
             break;
+            Console.WriteLine("Il cliente è stato inserito correttamente");
 
-            //Modifica cliente
+        //Modifica cliente
         case 2:
 
             Console.WriteLine("Inserisci il codice fiscale del cliente:");
@@ -138,18 +157,17 @@ while (running)
             Console.WriteLine("Inserisci il codice fiscale del cliente:");
             codiceFiscale = Console.ReadLine();
 
-           Cliente client = boolBank.RicercaCliente(codiceFiscale);
+            Cliente client = boolBank.RicercaCliente(codiceFiscale);
             List<Prestito> Prestiti = boolBank.RicercaPrestito(codiceFiscale);
 
             //Richiamre funzione AmmontareTotalePrestitiCliente
             int ammontareTot = 0;
 
-            foreach (Prestito prestito in Prestiti)
-            {
-                ammontareTot += prestito.Ammontare;
+                foreach (Prestito prestito in Prestiti)
+                {
+                    ammontareTot += prestito.Ammontare;
 
-            }
-
+                }
             Console.WriteLine("Totale ammontare prestiti concessi: {0}", ammontareTot);
 
             //richiamre funzione RateMancantiCliente
@@ -171,9 +189,7 @@ while (running)
 
             if (clienteEsistente == null)
             {
-
                 Console.WriteLine("Cliente non trovato. Modifica la tua ricerca");
-
             }
             else
             {
@@ -194,6 +210,29 @@ while (running)
                 Console.WriteLine("Prestito aggiunto");
 
             }
+            break;
+
+            //Prospetto prestiti banca
+        case 6:
+            Console.WriteLine("Lista prospetto prestiti banca");
+            boolBank.StampaProspettoPrestiti();
+
+            break;
+
+
+        //Prospetto clienti
+        case 7:
+            Console.WriteLine("Lista prospetto clienti");
+            boolBank.StampaProspettoClienti();
+            break;
+
+        //esc
+        case 8:
+            running = false;
+            break;
+
+        default:
+            Console.WriteLine("L'opzione scelta non esiste");
             break;
     }
 }

@@ -13,6 +13,13 @@ public class Cliente
         CodiceFiscale = codiceFiscale;
         Stipendio = stipendio;
     }
+    public override string ToString()
+    {
+        return ("Nome: " + Nome + 
+                " Cognome: " + Cognome + 
+                " Codice Fiscale: " + CodiceFiscale + 
+                " Stipendio: " + Stipendio);
+    }
 
     public Cliente(string codiceFiscale)
     {

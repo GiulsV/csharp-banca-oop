@@ -20,12 +20,12 @@ public class Banca
         Clienti.Add(cliente2);
         Clienti.Add(cliente3);
 
-        Prestito prestito1 = new Prestito(1111111, 2000, 100, DateOnly.Parse("01/09/2022"), cliente1);
-        Prestito prestito2 = new Prestito(2222222, 4000, 100, DateOnly.Parse("01/09/2021"), cliente2);
-        Prestito prestito3 = new Prestito(3333333, 1000, 50, DateOnly.Parse("01/10/2022"), cliente2);
-        Prestito prestito4 = new Prestito(4444444, 1000, 30, DateOnly.Parse("01/05/2021"), cliente3);
-        Prestito prestito5 = new Prestito(5555555, 1000, 25, DateOnly.Parse("01/08/2022"), cliente3);
-        Prestito prestito6 = new Prestito(6666666, 1000, 70, DateOnly.Parse("01/10/2022"), cliente3);
+        Prestito prestito1 = new Prestito(1111111, 2000, 100, DateOnly.Parse("01/02/2022"), DateOnly.Parse("01/03/2025"), cliente1);
+        Prestito prestito2 = new Prestito(2222222, 4000, 100, DateOnly.Parse("01/03/2022"), DateOnly.Parse("01/04/2025"), cliente2);
+        Prestito prestito3 = new Prestito(3333333, 1000, 50, DateOnly.Parse("01/04/2022"), DateOnly.Parse("01/05/2025"), cliente2);
+        Prestito prestito4 = new Prestito(4444444, 1000, 30, DateOnly.Parse("01/05/2022"), DateOnly.Parse("01/06/2025"), cliente3);
+        Prestito prestito5 = new Prestito(5555555, 1000, 25, DateOnly.Parse("01/06/2022"), DateOnly.Parse("01/07/2025"), cliente3);
+        Prestito prestito6 = new Prestito(6666666, 1000, 70, DateOnly.Parse("01/07/2022"), DateOnly.Parse("01/08/2025"), cliente3);
 
         Prestiti.Add(prestito1);
         Prestiti.Add(prestito2);
@@ -52,6 +52,7 @@ public class Banca
             return false;
         }
 
+        //ricerca dell'utente tramite codice fiscale
         Cliente esistente = RicercaCliente(codiceFiscale);
 
         //se il cliente esiste l'istanza sarà diversa dal null
@@ -75,6 +76,36 @@ public class Banca
 
         return null;
     }
+    //Modifica
+    public bool ModificaCliente(string inputUtente, string nome, string cognome, string codiceFiscale, int stipendio)
+    {
+        Cliente modificaCliente = RicercaCliente(inputUtente);
+
+        if (
+            nome == "" &&
+            cognome == "" &&
+            codiceFiscale == "" &&
+            stipendio == null
+            )
+        {
+            return false;
+        }
+
+        if (modificaCliente == null)
+        {
+            return false;
+        }
+        if (nome != "")
+            modificaCliente.Nome = nome;
+        if (cognome != "")
+            modificaCliente.Cognome = cognome;
+        if (codiceFiscale != "")
+            modificaCliente.CodiceFiscale = codiceFiscale;
+        if (stipendio != null || stipendio <= 0)
+            modificaCliente.Stipendio = stipendio;
+
+        return true;
+    }
 
     public List<Prestito> RicercaPrestito(string codiceFiscale)
     {
@@ -92,15 +123,18 @@ public class Banca
     // Funzione che ritorna il totale dei prestiti dell'utente
     public int AmmontareTotalePrestitiCliente(string codiceFiscale)
     {
-        int ammontare = 0;
+        int ammontare = 0; //metterò il conteggio
 
-        foreach (Prestito prestito in Prestiti)
+        List<Prestito> prestitiCliente = RicercaPrestito(codiceFiscale);
+
+        foreach (Prestito prestito in prestitiCliente)
         {
             ammontare += prestito.Ammontare;
         }
+
         return ammontare;
     }
-    //Funzione che ritorna il totale delle rate da pagare per un prestito
+    //Funzione che ritorna il totale delle rate da pagare per il prestito
     public int RateMancantiCliente(string codiceFiscale)
     {
         int rateMancanti = 0; 
@@ -126,10 +160,19 @@ public class Banca
     public void StampaProspettoClienti()
     {
         //stampare per tutti i clienti
+        foreach (Cliente cliente in Clienti)
+        {
+            Console.WriteLine(cliente.ToString());
+        }
     }
 
     public void StampaProspettoPrestiti()
     {
         //stampa per tutti i prestiti
+        foreach (Prestito prestito in Prestiti)
+        {
+            Console.WriteLine(prestito.ToString());
+        }
     }
+
 }

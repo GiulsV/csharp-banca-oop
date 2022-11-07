@@ -42,5 +42,20 @@ public class Prestito
         Rata = rata;
         DataInizio1 = dataInizio;
     }
+
+    public override string ToString()
+    {
+        return ("Id: " + this.ID + 
+                " Ammontare: " + Ammontare + 
+                " Valore Rata: " + ValoreRata + 
+                " Data inizio prestito: " + Inizio + 
+                " Data fine prestito: " + Fine + 
+                " " + Intestatario);
+    }
+
+    internal string RateMancantiCliente()
+    {
+        throw new NotImplementedException();
+    }
 }
 
