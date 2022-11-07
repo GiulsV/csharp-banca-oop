@@ -1,25 +1,4 @@
-﻿//aggiunta di un prestito
-// 1. chiedo all'utente di cercare il cliente su cui si vuole creare un prestito
-
-
-//Per la banca deve essere possibile:
-//- aggiungere, modificare e ricercare un cliente dato il codice fiscale.
-//- aggiungere un prestito.
-//- effettuare delle ricerche sui prestiti concessi ad un cliente dato il codice fiscale
-//- sapere, dato il codice fiscale di un cliente, l’ammontare totale dei prestiti concessi.
-//- sapere, dato il codice fiscale di un cliente, quante rate rimangono da pagare alla data odierna.
-
-//Per i clienti e per i prestiti si vuole stampare un prospetto riassuntivo con tutti i dati che li caratterizzano
-//in un formato di tipo stringa a piacere.
-
-//**Bonus:**
-
-//visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
-
-//La banca è caratterizzata da
-//- un nome
-//- un insieme di clienti (una lista)
-//-un insieme di prestiti concessi ai clienti (una lista)
+﻿
 public class Banca
 {
     public string Nome { get; set; }
@@ -113,7 +92,7 @@ public class Banca
     // Funzione che ritorna il totale dei prestiti dell'utente
     public int AmmontareTotalePrestitiCliente(string codiceFiscale)
     {
-        int ammontare = 0; //metterò il conteggio
+        int ammontare = 0;
 
         foreach (Prestito prestito in Prestiti)
         {
@@ -137,6 +116,12 @@ public class Banca
 
         return rateMancanti;
     }
+    public void AggiungiPrestito(Prestito nuovoPrestito)
+    {
+        {
+            this.Prestiti.Add(nuovoPrestito);
+        }
+    }
 
     public void StampaProspettoClienti()
     {
@@ -146,10 +131,5 @@ public class Banca
     public void StampaProspettoPrestiti()
     {
         //stampa per tutti i prestiti
-    }
-
-    public void AggiungiPrestito(Prestito nuovoPrestito)
-    {
-
     }
 }

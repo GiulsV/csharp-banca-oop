@@ -36,30 +36,162 @@ Per i clienti e per i prestiti si vuole stampare un prospetto riassuntivo con tu
 Bonus:
 visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.*/
 
-Banca intesa = new Banca("Intesa san Paolo");
+Banca boolBank = new Banca("BoolBank");
 
-
-Console.WriteLine("Sistema amministrazione banca " + intesa.Nome);
-
-//aggiunta di un prestito
-// 1. chiedo all'utente di cercare il cliente su cui si vuole creare un prestito
-Console.WriteLine("Creazione di un nuovo prestito");
+Console.WriteLine("Software Gestionale {0}" , boolBank.Nome);
 Console.WriteLine();
-Console.WriteLine("Inserisci il codice fiscale:");
-string codiceFiscale = Console.ReadLine();
 
-Cliente esistente = intesa.RicercaCliente(codiceFiscale);
+bool running = true;
 
-if (esistente == null)
+while (running)
 {
-    Console.WriteLine("errore: Cliente non trovato!");
-}
-else
-{
+    Console.WriteLine("Menu");
+    Console.Write("Seleziona l'azione che vuoi eseguire digitando il numero");
+    Console.WriteLine();
+    Console.WriteLine("[1] Aggiungi cliente");
+    Console.WriteLine("[2] Modifica cliente");
+    Console.WriteLine("[3] Ricerca cliente");
+    Console.WriteLine("[4] Ricerca prestito cliente");
+    Console.WriteLine("[5] Aggiungi un prestito");
 
-    Console.WriteLine("Ammontare del prestito: ");
-    int ammontarePrestito = Convert.ToInt32(Console.ReadLine());
-    Prestito nuovoPrestito = new Prestito(0, ammontarePrestito, 0, new DateOnly(), esistente);
+    int scelta = Convert.ToInt32(Console.ReadLine());
 
-    intesa.AggiungiPrestito(nuovoPrestito);
+    switch (scelta)
+    {
+        //Aggiungi cliente
+        case 1:
+
+            Console.WriteLine("Inserisci il codice fiscale del cliente:");
+            string codiceFiscale = Console.ReadLine();
+
+            Cliente clienteEsistente = boolBank.RicercaCliente(codiceFiscale);
+
+            if (clienteEsistente != null)
+            {
+                Console.WriteLine("Attenzione! Il cliente è già stato inserito!");
+
+            }
+            else
+            {
+
+               Cliente nuovoCLiente = new Cliente(codiceFiscale);
+                boolBank.AggiungiCliente(nuovoCLiente);
+                Console.WriteLine("Il cliente è stato inserito correttamente");
+            }
+            break;
+
+            //Modifica cliente
+        case 2:
+
+            Console.WriteLine("Inserisci il codice fiscale del cliente:");
+            codiceFiscale = Console.ReadLine();
+
+            clienteEsistente = boolBank.RicercaCliente(codiceFiscale);
+
+            if (clienteEsistente == null)
+            {
+
+                Console.WriteLine("Attenzione! non è stato trovato alcun cliente, cambia i criteri di ricerca");
+
+            }
+            else
+            {
+                Console.WriteLine("Inserisci il nome del cliente:");
+                string nomeCliente = Console.ReadLine();
+                Console.WriteLine("Inserisci il cognome del cliente:");
+                string cognomeCliente = Console.ReadLine();
+
+                clienteEsistente.Nome = nomeCliente;
+                clienteEsistente.Cognome = cognomeCliente;
+
+                Console.WriteLine("Il cliente è stato modificato correttamente");
+            }
+            break;
+
+            //Ricerca cliente
+        case 3:
+
+            Console.WriteLine("Inserisci il codice fiscale del cliente:");
+            codiceFiscale = Console.ReadLine();
+
+            clienteEsistente = boolBank.RicercaCliente(codiceFiscale);
+
+            if (clienteEsistente == null)
+            {
+
+                Console.WriteLine("Attenzione! non è stato trovato alcun cliente, cambia i criteri di ricerca");
+
+            }
+            else
+            {
+                Console.WriteLine("Cliente Trovato!");
+                Console.WriteLine(clienteEsistente.ToString());
+            }
+
+            break;
+
+            //Ricerca prestito cliente
+        case 4:
+
+            Console.WriteLine("Inserisci il codice fiscale del cliente:");
+            codiceFiscale = Console.ReadLine();
+
+           Cliente client = boolBank.RicercaCliente(codiceFiscale);
+            List<Prestito> Prestiti = boolBank.RicercaPrestito(codiceFiscale);
+
+            //Richiamre funzione AmmontareTotalePrestitiCliente
+            int ammontareTot = 0;
+
+            foreach (Prestito prestito in Prestiti)
+            {
+                ammontareTot += prestito.Ammontare;
+
+            }
+
+            Console.WriteLine("Totale ammontare prestiti concessi: {0}", ammontareTot);
+
+            //richiamre funzione RateMancantiCliente
+
+            foreach (Prestito prestito in Prestiti)
+            {
+                Console.WriteLine("Per il prestito {0}, rimangono {1} rate da pagare.", prestito.ID, prestito.ValoreRata);
+
+            }
+            break;
+
+            //Aggiungi un prestito
+        case 5:
+
+            Console.WriteLine("Inserisci il codice fiscale del cliente:");
+            codiceFiscale = Console.ReadLine();
+
+            clienteEsistente = boolBank.RicercaCliente(codiceFiscale);
+
+            if (clienteEsistente == null)
+            {
+
+                Console.WriteLine("Cliente non trovato. Modifica la tua ricerca");
+
+            }
+            else
+            {
+                Console.WriteLine("Cliente trovato");
+
+                Console.WriteLine("Inserisci l'ammontare del prestito:");
+                int ammontare = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Inserisci le rate del prestito:");
+                int rata = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("Inserisci la data di inizio prestito:");
+                DateOnly dataInizio = DateOnly.Parse(Console.ReadLine()); ;
+
+                Prestito nuovoPrestito = new(clienteEsistente, ammontare, rata, dataInizio);
+
+                boolBank.AggiungiPrestito(nuovoPrestito);
+                Console.WriteLine("Prestito aggiunto");
+
+            }
+            break;
+    }
 }

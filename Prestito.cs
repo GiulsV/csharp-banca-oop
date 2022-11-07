@@ -1,12 +1,4 @@
-﻿/*
-I prestiti sono caratterizzati da
-- ID
-- intestatario del prestito (il cliente),
--un ammontare,
--una rata,
--una data inizio,
-- una data fine.*/
-
+﻿
 public class Prestito
 {
     public int ID { get; set; }
@@ -15,8 +7,10 @@ public class Prestito
     public DateOnly Inizio { get; set; }
     public DateOnly Fine { get; set; }
     public Cliente Intestatario { get; set; }
-
-    //private int ammontarePrestito;
+    public Cliente ClienteEsistente { get; }
+    public int Rata { get; }
+    public DateTime DataInizio { get; }
+    public DateOnly DataInizio1 { get; }
 
     //prestito in partenza dalla data specificata
     public Prestito(int iD, int ammontare, int valoreRata, DateOnly inizio, DateOnly fine, Cliente intestatario)
@@ -39,6 +33,14 @@ public class Prestito
         Inizio = new DateOnly();
         Fine = fine;
         Intestatario = intestatario;
+    }
+
+    public Prestito(Cliente clienteEsistente, int ammontare, int rata, DateOnly dataInizio)
+    {
+        ClienteEsistente = clienteEsistente;
+        Ammontare = ammontare;
+        Rata = rata;
+        DataInizio1 = dataInizio;
     }
 }
 
