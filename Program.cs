@@ -53,6 +53,8 @@ while (running)
     Console.WriteLine("[3] Ricerca cliente");
     Console.WriteLine("[4] Ricerca prestito cliente");
     Console.WriteLine("[5] Aggiungi un prestito");
+    Console.WriteLine("[6] Prospetto cliente");
+    Console.WriteLine("[7] Prospetto prestiti");
 
     int scelta = Convert.ToInt32(Console.ReadLine());
 
