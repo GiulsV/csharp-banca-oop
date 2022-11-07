@@ -1,12 +1,4 @@
-﻿//aggiunta di un prestito
-// 1. chiedo all'utente di cercare il cliente su cui si vuole creare un prestito
-
-
-// 2. chiedo i dati del prestito
-// 3. aggiungo il prestito
-
-
-
+﻿
 //inserimento cliente
 //Console.WriteLine("Inserisci il codice fiscale:");
 //string codiceFiscale = Console.ReadLine();
@@ -40,9 +32,6 @@ public class Cliente
     public string CodiceFiscale { get; set; }
     public int Stipendio { get; set; }
 
-    //qui non serve perchè è già in banca e anche in Prestito c'è la relazione con il cliente
-    //public List<Prestito> Prestiti { get; set; }
-
     public Cliente(string nome, string cognome, string codiceFiscale, int stipendio)
     {
         Nome = nome;
@@ -50,4 +39,5 @@ public class Cliente
         CodiceFiscale = codiceFiscale;
         Stipendio = stipendio;
     }
+
 }
